@@ -1,0 +1,28 @@
+﻿@model Сatalog.Models.DeptsListModel
+
+@if (Model.Depts.Where(x => x.ParentId == Model.Seed).Any())
+{
+    <ul>
+        @foreach (var node in Model.Depts)
+        {
+            if (node.ParentId == Model.Seed)
+            {
+                Сatalog.Models.DeptsListModel inner = new Сatalog.Models.DeptsListModel { Seed = node.Id, Depts = Model.Depts };
+                <li>
+                    <div class="tree">
+
+                        <a asp-action="ShowWorkersByDeptId" asp-route-deptId="@node.Id" node-id="@node.Id" class="drag" onclick="expand(this)">[@node.Name]</a>
+
+                        <a asp-action="AddDept" asp-route-id="@node.Id">Добавить</a> |
+                        <a asp-action="EditDept" asp-route-id="@node.Id">Редактировать</a> |
+                        <a asp-action="IsDeleteDept" asp-route-id="@node.Id">Удалить</a>
+
+                        <!-- <input type="button" value="Добавить" /> | <input type="button" value="Редактировать" /> | <input type="button" value="Удалить" /> -->
+                    </div>
+                    @Html.Partial("_TreeDeptListView", inner)
+                </li>
+            }
+        }
+    </ul>
+}
+

@@ -1,0 +1,75 @@
+﻿@model Сatalog.Models.DeptsListModel
+
+
+@{
+    ViewData["Title"] = "DeptTreeTestView";
+}
+
+<h2>Справочник подразделений и персонала</h2>
+
+
+<div id="depts" style="overflow-y: scroll; width: 35vw; float: left;">
+    <p>
+        <input type="button" value="Создать компанию" onclick="location.href='@Url.Action("AddRootDept", "Home")'" />
+        @Html.Partial("_TreeDeptListView", Model)
+    </p>
+</div>
+
+<div id="workers" style="overflow-y: scroll; width: 62vw;">
+
+    <!-- Не работает-->
+    <form asp-action="SetShowDataDepthNodes">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="IsShowDataDepthNodes" class="control-label"></label>
+            <input asp-for="IsShowDataDepthNodes" type="checkbox" asp-route-deptId="this.value" class="form-control" />
+            <span asp-validation-for="IsShowDataDepthNodes" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Обновить" class="btn btn-default" />
+        </div>
+    </form>
+
+    <p>
+
+        <input type="button" value="Добавить сотрудника" onclick="location.href='@Url.Action("AddWorker", "Home")'" />
+        <table border="1">
+            <tr>
+                @{
+
+                    Worker viewAttribute = new Worker();
+
+                    <td>@Html.DisplayNameFor(model => viewAttribute.Id)</td>
+                    <td>@Html.DisplayNameFor(model => viewAttribute.DeptId)</td>
+                    <td>@Html.DisplayNameFor(model => viewAttribute.FullName)</td>
+                    <td>@Html.DisplayNameFor(model => viewAttribute.PositionId)</td>
+                    <td>@Html.DisplayNameFor(model => viewAttribute.TelephoneNumber)</td>
+                    <td>@Html.DisplayNameFor(model => viewAttribute.Email)</td>
+                    <td>@Html.DisplayNameFor(model => viewAttribute.GenderType)</td>
+                    <td>Редактировать</td>
+                    <td>Удалить</td>
+                }
+            </tr>
+            @{
+                if (Model.Workers != null)
+                {
+                    foreach (var worker in Model.Workers)
+                    {
+                        <tr>
+                            <td>@worker.Id</td>
+                            <td>@worker.DeptId</td>
+                            <td>@worker.FullName</td>
+                            <td>@worker.PositionId</td>
+                            <td>@worker.TelephoneNumber</td>
+                            <td>@worker.Email</td>
+                            <td>@worker.GenderType</td>
+                            <!-- TODO: Передать параметр как в Dept -->
+                            <td><a asp-action="EditWorker" asp-route-id="@worker.Id">Редактировать</a></td>
+                            <td><a asp-action="IsDeleteWorker" asp-route-id="@worker.Id">Удалить</a></td>
+                        </tr>
+                    }
+                }
+            }
+        </table>
+    </p>
+</div>

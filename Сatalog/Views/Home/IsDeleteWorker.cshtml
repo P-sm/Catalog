@@ -1,0 +1,57 @@
+﻿@model Сatalog.Models.Worker
+
+@{
+    ViewData["Title"] = "IsDeleteWorker";
+}
+
+<h2>Удаление сотрудника</h2>
+
+<h3>Вы уверены, что хотите удалить данного сотрудника?</h3>
+<div>
+    <h4>Сотрудник</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DeptId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DeptId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PositionId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PositionId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TelephoneNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TelephoneNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GenderType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GenderType)
+        </dd>
+    </dl>
+
+    <form asp-action="DeleteWorker">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Удалить" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
